@@ -31,10 +31,13 @@ class App extends React.Component {
       if (ss.length < 2) {
         ss = "0" + ss;
       }
-    
+      var checkBefore = "" + hh + mm + ss;
+      if(checkBefore.length<6){
+        checkBefore = "0"+checkBefore;
+      }
       this.setState({
         mounted: true,
-        hex: "" + hh + mm + ss
+        hex: checkBefore
       })
     },1000)
   }
@@ -43,7 +46,15 @@ class App extends React.Component {
   }
 
   render() {
-    var colorString = "#" + parseInt(this.state.hex);
+    var colorString= "";
+    if(this.state.hex.length === 6){
+       colorString = "#" + parseInt(this.state.hex);
+    }else{
+       colorString = "#0" + parseInt(this.state.hex);
+    }
+    
+   
+    console.log("colorString: " + colorString);
     const styles = {
       backgroundColor: colorString,
       fontSize: 30,
