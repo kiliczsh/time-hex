@@ -52,9 +52,6 @@ class App extends React.Component {
     }else{
        colorString = "#0" + parseInt(this.state.hex);
     }
-    
-   
-    console.log("colorString: " + colorString);
     const styles = {
       backgroundColor: colorString,
       fontSize: 30,
