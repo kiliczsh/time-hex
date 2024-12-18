@@ -40,7 +40,6 @@ const getHex = (d: Date): string => {
 const ColorClock = () => {
   const [time, setTime] = useState(new Date());
   const [showColor, setShowColor] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
   const [showFooter, setShowFooter] = useState(true);
 
   useEffect(() => {
@@ -56,14 +55,6 @@ const ColorClock = () => {
   const minutes = time.getMinutes().toString().padStart(2, '0');
   const seconds = time.getSeconds().toString().padStart(2, '0');
 
-  const handleClick = (showColorValue: boolean) => {
-    setIsAnimating(true);
-    setTimeout(() => {
-      setShowColor(showColorValue);
-      setIsAnimating(false);
-    }, 300);
-  };
-
   return (
     <div
       className="fixed inset-0 flex flex-col items-center justify-between z-[250] min-h-screen p-4"
@@ -77,33 +68,22 @@ const ColorClock = () => {
     >
       <div className="flex-grow flex items-center justify-center w-full max-w-md">
         <div className="space-y-8 w-full">
-          <div className="relative h-[12rem] sm:h-[14rem] md:h-[16rem] lg:h-[18rem] flex items-center justify-center overflow-hidden">
-            <div className={cn(
-              "absolute w-full transition-all duration-500",
-              showColor ? "translate-y-full opacity-0" : "translate-y-0 opacity-100",
-              isAnimating && "scale-[0.95] rotate-3"
-            )}>
-              <div className="font-display text-[4rem] sm:text-[5rem] md:text-[6rem] lg:text-[7rem] text-white text-center">
-                {hours}
-                <span className="animate-pulse">:</span>
-                {minutes}
-                <span className="animate-pulse">:</span>
-                {seconds}
-              </div>
-            </div>
-            <div className={cn(
-              "absolute w-full transition-all duration-500",
-              !showColor ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100",
-              isAnimating && "scale-[1.05] -rotate-3"
-            )}>
-              <div className="font-display text-[4rem] sm:text-[5rem] md:text-[6rem] lg:text-[7rem] text-white text-center break-all">
-                {timeColor}
-              </div>
+          <div className="h-[12rem] sm:h-[14rem] md:h-[16rem] lg:h-[18rem] flex items-center justify-center">
+            <div className="font-display text-[4rem] sm:text-[5rem] md:text-[6rem] lg:text-[7rem] text-white text-center">
+              {showColor ? timeColor : (
+                <>
+                  {hours}
+                  <span className="animate-pulse">:</span>
+                  {minutes}
+                  <span className="animate-pulse">:</span>
+                  {seconds}
+                </>
+              )}
             </div>
           </div>
           <div className="flex justify-center space-x-4">
             <button
-              onClick={() => handleClick(false)}
+              onClick={() => setShowColor(false)}
               className={cn(
                 "p-2 sm:p-3 rounded-full font-medium transition-all duration-300",
                 !showColor ? "bg-white text-black scale-105" : "bg-white/20 text-white hover:bg-white/30"
@@ -112,7 +92,7 @@ const ColorClock = () => {
               <Clock size={24} />
             </button>
             <button
-              onClick={() => handleClick(true)}
+              onClick={() => setShowColor(true)}
               className={cn(
                 "p-2 sm:p-3 rounded-full font-medium transition-all duration-300",
                 showColor ? "bg-white text-black scale-105" : "bg-white/20 text-white hover:bg-white/30"
