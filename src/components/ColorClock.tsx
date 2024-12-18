@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Clock, Palette } from 'lucide-react';
+import { Clock, Palette, ChevronDown, ChevronUp } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 
 const convertBase16 = (num: number): string => {
@@ -41,6 +41,7 @@ const ColorClock = () => {
   const [time, setTime] = useState(new Date());
   const [showColor, setShowColor] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [showFooter, setShowFooter] = useState(true);
 
   useEffect(() => {
     const timer = requestAnimationFrame(function updateClock() {
@@ -122,10 +123,20 @@ const ColorClock = () => {
           </div>
         </div>
       </div>
-      <footer className="w-full p-4 sm:p-6 text-center text-white text-sm sm:text-base">
-        <p>Coloring time, one tick at a time 🎨⏰</p>
-        <p className="mt-1 text-xs sm:text-sm">Crafted with passion by @<a href="https://github.com/kiliczsh" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-300 transition-colors">kiliczsh</a> in 2020</p>
-      </footer>
+      <div className="w-full flex flex-col items-center">
+        <button
+          onClick={() => setShowFooter(!showFooter)}
+          className="p-2 mb-2 rounded-full bg-white/20 text-white hover:bg-white/30 transition-all duration-300"
+        >
+          {showFooter ? <ChevronDown size={24} /> : <ChevronUp size={24} />}
+        </button>
+        {showFooter && (
+          <footer className="w-full p-4 sm:p-6 text-center text-white text-sm sm:text-base">
+            <p>Coloring time, one tick at a time 🎨⏰</p>
+            <p className="mt-1 text-xs sm:text-sm">Crafted with passion by @<a href="https://github.com/kiliczsh" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-300 transition-colors">kiliczsh</a> in 2020</p>
+          </footer>
+        )}
+      </div>
     </div>
   );
 };
