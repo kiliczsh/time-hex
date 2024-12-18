@@ -124,7 +124,7 @@ const ColorClock = () => {
       </div>
       <footer className="w-full p-4 sm:p-6 text-center text-white text-sm sm:text-base">
         <p>Coloring time, one tick at a time 🎨⏰</p>
-        <p className="mt-1 text-xs sm:text-sm">Crafted with passion by kiliczsh</p>
+        <p className="mt-1 text-xs sm:text-sm">Crafted with passion by @<a href="https://github.com/kiliczsh" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-300 transition-colors">kiliczsh</a> in 2020</p>
       </footer>
     </div>
   );
